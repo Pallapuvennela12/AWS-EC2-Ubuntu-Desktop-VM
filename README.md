@@ -37,5 +37,5 @@ screenshots/README.md
 README.md
 LICENSE```
 
-## VIDEO EXPLANATION
+
 
