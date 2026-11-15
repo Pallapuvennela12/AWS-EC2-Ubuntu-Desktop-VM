@@ -37,7 +37,7 @@ screenshots/README.md
 README.md
 LICENSE
 
-Shell Implementation
+##Shell Implementation
 See src/setup_desktop.sh.
 
 Bash
@@ -59,7 +59,7 @@ sudo systemctl restart xrdp xrdp-sesman
 Verification Commands & Expected Outputs
 Service & Port Check: sudo systemctl is-active xrdp xrdp-sesman && sudo ss -tulpn | grep 3389
 
-Expected: Both services active; xrdp listening on *:3389
+## Expected: Both services active; xrdp listening on *:3389
 
 CPU Allocation: lscpu | grep "Model name\|CPU(s):"
 
