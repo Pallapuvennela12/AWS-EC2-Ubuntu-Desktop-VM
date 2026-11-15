@@ -10,6 +10,51 @@ Provision a virtual machine running a heavyweight Linux operating system (Ubuntu
 - **Name:** Vennela Pallapu
 - **Roll No:** 2410080070
 - **Department:** B.Tech (AI & DS), 3rd Year
+  
+## video Demonstration:
+** https://www.youtube.com/watch?v=PjVVQ97YOvA
+
+## Verification Commands & Expected Outputs
+ Service & Port Check: sudo systemctl is-active xrdp xrdp-sesman && sudo ss -tulpn | grep 3389
+
+Expected: Both services active; xrdp listening on *:3389
+
+CPU Allocation: lscpu | grep "Model name\|CPU(s):"
+
+Expected: 2 virtual CPU cores (Intel Xeon)
+
+Memory Allocation: free -h
+
+Expected: ~1.0 GiB total RAM (t3.micro)
+
+Root Storage: df -h /
+
+Expected: ~29 GB usable capacity mounted on /
+
+OS Version: lsb_release -a
+
+Expected: Ubuntu 24.04 LTS
+
+## Deploy & Connect Using AWS Console
+Open EC2 in the AWS Management Console and choose Launch instance.
+
+Name the instance Ubuntu-Desktop-pro and select the Ubuntu Server 24.04 LTS AMI.
+
+Choose the t3.micro instance type (Free Tier eligible).
+
+Create or select a key pair and configure the Security Group to allow SSH (Port 22) and RDP (Port 3389).
+
+Set root storage to 30 GiB (gp3) and launch the instance.
+
+Connect to the instance via EC2 Instance Connect (browser SSH).
+
+Run the setup commands in src/setup_desktop.sh and set the login password using sudo passwd ubuntu.
+
+Open Remote Desktop Connection (mstsc) on Windows and enter the instance's Public IPv4 address.
+
+Keep Session set to Xorg, log in with username ubuntu and your password, and verify the hardware specs in the terminal.
+
+Terminate the EC2 instance after verification to stay within AWS Free Tier limits.
 
 ## Architecture & Hypervisor Note
 AWS Free Tier instances (t3.micro) restrict nested hardware virtualization (VT-x / AMD-V) required by local Type-2 hypervisors such as VirtualBox. Instead, this practical leverages AWS's underlying **Nitro Hypervisor** (Type-1 cloud hypervisor) to run the VM directly in the cloud, paired with the lightweight **XFCE4** desktop environment and **xrdp** server so the graphical OS runs smoothly within 1 GiB of RAM.
@@ -28,6 +73,17 @@ AWS Free Tier instances (t3.micro) restrict nested hardware virtualization (VT-x
 - XFCE4 Desktop Environment
 - xrdp Server & Windows Remote Desktop (mstsc)
 - AWS Security Groups & EC2 Instance Connect
+
+## Results
+All deployment and verification steps were completed successfully:
+
+-**VM Provisioning:** Ubuntu 24.04 LTS running on AWS EC2 t3.micro (2 vCPUs, 1 GiB RAM, 30 GiB EBS).
+
+-**Remote Connectivity:** Active xrdp listener on TCP Port 3389 with encrypted Windows RDP access.
+
+-**Graphical Desktop:** Responsive XFCE4 desktop interface without session crashes.
+
+-**Hardware Verification:** Confirmed Intel Xeon vCPUs, memory, disk space, and Ubuntu 24.04 LTS release inside the VM terminal.
 
 ## Repository Structure
 ```text
