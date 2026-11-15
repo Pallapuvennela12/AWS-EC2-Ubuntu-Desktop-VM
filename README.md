@@ -35,7 +35,7 @@ src/setup_desktop.sh
 docs/architecture.md
 screenshots/README.md
 README.md
-LICENSE```
+LICENSE
 
 
 
